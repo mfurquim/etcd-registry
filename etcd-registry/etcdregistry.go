@@ -14,8 +14,8 @@ import (
 
 //EtcdRegistry lib
 type EtcdRegistry struct {
-	etcdBasePath   string
 	etcdEndpoints  []string
+	etcdBasePath   string
 	defaultTimeout time.Duration
 }
 
@@ -27,11 +27,12 @@ type Node struct {
 
 //NewEtcdRegistry EtcdRegistry factory method
 func NewEtcdRegistry(etcdEndpoints []string, etcdBasePath string, defaultTimeout time.Duration) (*EtcdRegistry, error) {
-	r := &EtcdRegistry{}
-	r.defaultTimeout = defaultTimeout
-	r.etcdBasePath = etcdBasePath
-	r.etcdEndpoints = etcdEndpoints
-	return r, nil
+	etcdRegistry := &EtcdRegistry{
+        etcdEndpoints:  etcdEndpoints,
+        etcdBasePath:   etcdBasePath,
+        defaultTimeout: defaultTimeout,
+    }
+	return etcdRegistry, nil
 }
 
 //RegisterNode registers a new Node to a service with a TTL. After registration, TTL lease will be kept alive until node is unregistered or process killed
